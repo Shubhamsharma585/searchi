@@ -33,27 +33,7 @@ function SearchBox() {
           placeholder="Search users by ID, name and others"
         />
       )}
-      <div
-        style={{
-          border: "4px solid blue",
-          width: "50%",
-          margin: "auto",
-          marginTop: 40,
-          height: 500,
-          overflow: "scroll",
-        }}
-      >
-        {relatedResults?.length > 0 ? (
-          <SearchResults
-            relatedResults={relatedResults}
-            searchText={searchText}
-          />
-        ) : (
-          <div>
-            <h4>{"No User Found"}</h4>
-          </div>
-        )}
-      </div>
+      <SearchResults relatedResults={relatedResults} searchText={searchText} />
     </div>
   );
 }
