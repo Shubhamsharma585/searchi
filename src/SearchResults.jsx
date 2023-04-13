@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function SearchResults({ relatedResults, searchText }) {
   const [cursorVisible, setCursorVisible] = useState(true);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const parentRef = useRef(null);
 
   const highlightText = (text, search) => {
     const regex = new RegExp(`(${search})`, "gi");
@@ -41,6 +42,13 @@ function SearchResults({ relatedResults, searchText }) {
         // Down arrow key
         setHighlightedIndex(highlightedIndex + 1);
       }
+
+      if (parentRef.current && parentRef.current.children[highlightedIndex]) {
+        parentRef.current.children[highlightedIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -53,6 +61,7 @@ function SearchResults({ relatedResults, searchText }) {
   return (
     <>
       <div
+        ref={parentRef}
         style={{
           border: "4px solid blue",
           width: "50%",
